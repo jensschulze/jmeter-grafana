@@ -1,0 +1,8 @@
+{
+    "name": "jensschulze/jmeter-grafana",
+    "type": "project",
+    "require": {
+        "influxdb/influxdb-php": "^1.15"
+    },
+    "minimum-stability": "stable"
+}

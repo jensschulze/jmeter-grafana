@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+    jmeter-grafana:
+        image: grafana/grafana:latest
+        container_name: jmeter-grafana
+        ports:
+            - 3000:3000
+        volumes:
+            - ${PWD}/var/grafana/data:/var/lib/grafana:cached
+    jmeter-influxdb:
+        image: influxdb:alpine
+        container_name: jmeter-influxdb
+        environment:
+            - INFLUXDB_DB=jmeter
+            - INFLUXDB_USER=jmeter
+            - INFLUXDB_USER_PASSWORD=jmeter
+        ports:
+            - 8086:8086
+            - 8083:8083
+            - 2003:2003
+        volumes:
+            - ${PWD}/var/influxdb/data:/var/lib/influxdb:cached
+            - ${PWD}/var/influxdb/conf/influxdb.conf:/etc/influxdb/influxdb.conf:cached

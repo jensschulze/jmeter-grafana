@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+set -e
+
+"${PWD}/bin/server/stop" || true
+rm -rf "${PWD}/var/grafana" "${PWD}/var/influxdb/data"
+
+echo 'Persistent data deleted.'

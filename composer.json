@@ -2,6 +2,7 @@
     "name": "jensschulze/jmeter-grafana",
     "type": "project",
     "require": {
+        "php": "^7.4",
         "influxdb/influxdb-php": "^1.15"
     },
     "minimum-stability": "stable"

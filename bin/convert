@@ -1,3 +1,28 @@
-#!/usr/bin/env php
-<?php
-include dirname(__FILE__, 2).'/convert.php';
+#!/usr/bin/env sh
+
+set -e
+
+PHP_IMAGE='php:7.4-cli-alpine'
+
+CONVERT_SEND_CHUNK_SIZE=5000
+CONVERT_INFLUXDB_HOST='host.docker.internal'
+CONVERT_INFLUXDB_PORT=8086
+CONVERT_INFLUXDB_DB=jmeter
+CONVERT_INFLUXDB_USER=jmeter
+CONVERT_INFLUXDB_PASSWORD=jmeter
+
+docker run \
+    -it \
+    --rm \
+    --name jmeter-php \
+    -e CONVERT_SEND_CHUNK_SIZE=${CONVERT_SEND_CHUNK_SIZE} \
+    -e CONVERT_INFLUXDB_HOST=${CONVERT_INFLUXDB_HOST} \
+    -e CONVERT_INFLUXDB_PORT=${CONVERT_INFLUXDB_PORT} \
+    -e CONVERT_INFLUXDB_DB=${CONVERT_INFLUXDB_DB} \
+    -e CONVERT_INFLUXDB_USER=${CONVERT_INFLUXDB_USER} \
+    -e CONVERT_INFLUXDB_PASSWORD=${CONVERT_INFLUXDB_PASSWORD} \
+    -v "${PWD}/src":/app/src:ro,cached \
+    -v "${PWD}/var/data.csv":/app/var/data.csv:ro,cached \
+    -v "${PWD}/vendor":/app/vendor \
+    -w /app \
+    ${PHP_IMAGE} php src/convert.php

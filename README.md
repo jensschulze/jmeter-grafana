@@ -12,6 +12,8 @@ composer install
 
 ## Run it
 
+There must be a comma separated results file `var/data.csv`. 
+
 ```bash
 bin/server/start
 bin/convert
